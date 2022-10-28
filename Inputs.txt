@@ -1,0 +1,160 @@
+DOP
+   
+    video_name = 'dop_1cm_0.9mms_trim'
+    folder_path = 'D:\Thèse_3a\Instron_gouttes'
+    #video_path = "D:/Thèse_1a/Expériences/Instron_extrusion/Test/images_results/Emul88_2cm_0.036mms_1.MP4" # This could also be in a loop later
+    video_path = folder_path+'/'+video_name+'.MP4'
+    
+    write_all_images = False
+    debug = True
+    right_margin = True
+    left_margin = True
+    upper_margin = True
+    bottom_margin = True
+    write_csv_files = True
+    auto_scale = False
+    Invert = True
+    Only_pinch_off = True
+    
+    #Images treatment parameters
+    denoising_kernel_size = 20 #Removes background noise
+    blur_kernel_size = 3 #Slightly blurs for a better homogeneity
+    black_and_white_threshold = 40 #Threshold value for turning Grey to B&W
+    right_margin_value = 0 #Number of pixels cropped from the initial image (if asked for)
+    left_margin_value = 200 #Number of pixels cropped from the initial image (if asked for)
+    upper_margin_value = 300
+    bottom_margin_value = 300
+    margin = 60 #Number of pixels cropped from the initial image at each iteration to remove the nozzle from the image.
+    #Its value should not have an impact an the cropped image
+    cut = 0 #in case we cut a part of the image
+
+    #Material and setup parameters
+    diam_buse = 1 #cm
+    rho = 1000 #Carbopol density
+    g = 9.81 #m.s-2
+    framerate = 60 #img/s
+    scale = 891/4.5 #number of pixels for 1cm
+
+
+
+
+EMULSION
+
+    video_name = 'Emul88_1cm_0.36mms_4'
+    folder_path = 'D:\Thèse_3a\Instron_gouttes'
+    #video_path = "D:/Thèse_1a/Expériences/Instron_extrusion/Test/images_results/Emul88_2cm_0.036mms_1.MP4" # This could also be in a loop later
+    video_path = folder_path+'/'+video_name+'.MP4'
+    
+    write_all_images = False
+    debug = True
+    right_margin = True
+    left_margin = True
+    upper_margin = True
+    bottom_margin = True
+    write_csv_files = True
+    auto_scale = False
+    Invert = False
+    Only_pinch_off = True
+    
+    #Images treatment parameters
+    denoising_kernel_size = 20 #Removes background noise
+    blur_kernel_size = 3 #Slightly blurs for a better homogeneity
+    black_and_white_threshold = 40 #Threshold value for turning Grey to B&W
+    right_margin_value = 0 #Number of pixels cropped from the initial image (if asked for)
+    left_margin_value = 200 #Number of pixels cropped from the initial image (if asked for)
+    upper_margin_value = 300
+    bottom_margin_value = 200
+    margin = 60 #Number of pixels cropped from the initial image at each iteration to remove the nozzle from the image.
+    #Its value should not have an impact an the cropped image
+    cut = 0 #in case we cut a part of the image
+
+    #Material and setup parameters
+    diam_buse = 1 #cm
+    rho = 780 #Emulsion density
+    g = 9.81 #m.s-2
+    framerate = 60 #img/s
+    scale = 943/4.5 #number of pixels for 1cm
+
+
+
+
+KAOLIN
+    
+    video_name = 'kaolin50_2cm_0.36mms_2'
+    folder_path = 'D:\Thèse_3a\Instron_gouttes'
+    video_path = folder_path+'/'+video_name+'.MP4'
+    
+    write_all_images = False  #Write image in color and black and white at all selected times
+    debug = True  #Check that last image is indeed the image of separation
+    right_margin = True  #Crop image from the right (nozzle side)
+    left_margin = True
+    upper_margin = True
+    bottom_margin = True
+    write_csv_files = True
+    auto_scale = False  #Automatically scales the highest filament diameter value as the the nozzle diameter
+    Invert = False
+    Only_pinch_off = True  #Delivers data of the pinch-off only
+    
+    #Images treatment parameters
+    denoising_kernel_size = 20 #Removes background noise
+    blur_kernel_size = 3 #Slightly blurs for a better homogeneity
+    black_and_white_threshold = 40 #Threshold value for turning Grey to B&W
+    right_margin_value = 0 #Number of pixels cropped from the initial image (if asked for)
+    left_margin_value = 100 #Number of pixels cropped from the initial image (if asked for)
+    upper_margin_value = 250
+    bottom_margin_value = 200
+    margin = 60 #Number of pixels cropped from the initial image at each iteration to remove the nozzle from the image.
+    #Its value should not have an impact an the cropped image
+    cut = 0 #in case we cut a part of the image
+
+    #Material and setup parameters
+    diam_buse = 2 #cm
+    phi = 27 #Volume concentration in solid particles
+    density = 2710 #Kaolin density
+    rho = phi/100*density+(100-phi)/100*1000 #Suspension density
+    g = 9.81 #m.s-2
+    framerate = 60 #img/s
+    scale = 335/2 #number of pixels for 1cm (manual)
+
+
+
+
+
+CIMENT
+    
+    video_name = '40_1_0.36_2'
+    folder_path = 'D:\Thèse_3a\Instron_gouttes'
+    #video_path = "D:/Thèse_1a/Expériences/Instron_extrusion/Test/images_results/Emul88_2cm_0.036mms_1.MP4" # This could also be in a loop later
+    video_path = folder_path+'/'+video_name+'.MP4'
+    
+    write_all_images = False
+    debug = True
+    right_margin = True
+    left_margin = True
+    upper_margin = True
+    bottom_margin = True
+    write_csv_files = True
+    auto_scale = False
+    Invert = True
+    Only_pinch_off = True
+    
+    #Images treatment parameters
+    denoising_kernel_size = 20 #Removes background noise
+    blur_kernel_size = 3 #Slightly blurs for a better homogeneity
+    black_and_white_threshold = 50 #Threshold value for turning Grey to B&W
+    right_margin_value = 40 #Number of pixels cropped from the initial image (if asked for)
+    left_margin_value = 700 #Number of pixels cropped from the initial image (if asked for)
+    upper_margin_value = 350
+    bottom_margin_value = 350
+    margin = 60 #Number of pixels cropped from the initial image at each iteration to remove the nozzle from the image.
+    #Its value should not have an impact an the cropped image
+    cut = 0 #in case we cut a part of the image
+
+    #Material and setup parameters
+    diam_buse = 1 #cm
+    phi = 44.6 #Volume concentration in cement
+    density = 3100 #Kaolin density
+    rho = phi/100*density+(100-phi)/100*1000 #Suspension density
+    g = 9.81 #m.s-2
+    framerate = 60 #img/s
+    scale = 565/4.5 #number of pixels for 1cm
