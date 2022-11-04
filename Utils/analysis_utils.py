@@ -180,8 +180,8 @@ def corrections_R_et_Z_analyse (R, Z, pas = 10):
     V = 0
     i = 2
 
-    while Rm[i]<max(Rm[2:-50]):
-  
+    while Rm[i]<max(Rm[2:-(len(Rm)//3)]):
+   
         V+=(Zm[i+1]-Zm[i])*Rm[i]**2*math.pi
         i+=1
     correc_Z=V/math.pi
