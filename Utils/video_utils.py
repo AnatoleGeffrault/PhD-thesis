@@ -1,5 +1,5 @@
 import cv2
-
+import os
 
 
 def convert_video_to_image_sequence(video_path, Invert = False):
@@ -48,7 +48,9 @@ def compute_number_of_shapes(black_and_white_img, noise_size = 70, debug_img = N
 
 #######GET IMAGES#########
 
-def get_several_images_to_crop_2(imgs, black_and_white_threshold = 30, denoising_kernel_size = 70, debug = False):
+def get_several_images_to_crop_2(imgs, black_and_white_threshold = 30, 
+                                 denoising_kernel_size = 70, 
+                                 debug = False, output_folder = ""):
 
     imgs_background_only = []
     imgs_drop = []
@@ -68,12 +70,12 @@ def get_several_images_to_crop_2(imgs, black_and_white_threshold = 30, denoising
     for i in range(1, len(imgs_background_only)-1):
         next_nb_shapes = compute_number_of_shapes(imgs_background_only[i+1])
         if cur_nb_shapes > prev_nb_shapes and next_nb_shapes >= cur_nb_shapes and  i > 1 :        
-            for h in range (1,10):
-                step0 = count[-1]+(i-125-count[-1])*h//10
-                if count[-1]<step0:
-                    print ("step0=",step0)
-                    steps.append(step0)
-                    imgs_drop.append(imgs[step0])
+#            for h in range (1,10):
+#                step0 = count[-1]+(i-125-count[-1])*h//10
+#                if count[-1]<step0:
+#                    print ("step0=",step0)
+#                    steps.append(step0)
+#                    imgs_drop.append(imgs[step0])
             for j in range (0,10):
                 step1 = i-125+10*j
                 if count[-1]<step1:
@@ -95,7 +97,11 @@ def get_several_images_to_crop_2(imgs, black_and_white_threshold = 30, denoising
                 
             if debug:
                 print("nb_shapes change", next_nb_shapes, cur_nb_shapes, prev_nb_shapes)
-                cv2.imwrite("detect_" + str(i) + ".tif", cv2.hconcat([imgs_background_only[i-1], imgs_background_only[i], imgs_background_only[i+1]]))
+                if not len(output_folder):
+                    output_path = "detect_" + str(i) + ".tif"
+                else:
+                    output_path = os.path.join(output_folder, "detect_" + str(i) + ".tif")
+                cv2.imwrite(output_path, cv2.hconcat([imgs_background_only[i-1], imgs_background_only[i], imgs_background_only[i+1]]))
             count.append(i)
         prev_nb_shapes = cur_nb_shapes
         cur_nb_shapes = next_nb_shapes
