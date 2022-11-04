@@ -12,10 +12,11 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
-from drop_detection_utils import *
-from video_utils import *
-from analysis_utils import *
+from Utils.drop_detection_utils import *
+from Utils.video_utils import *
+from Utils.analysis_utils import *
 
 if __name__ == "__main__":
     
@@ -24,9 +25,12 @@ if __name__ == "__main__":
  
     
     video_name = 'Emul88_1cm_0.36mms_4'
-    folder_path = 'D:\Thèse_3a\Instron_gouttes'
+    folder_path = os.getcwd ()
     #video_path = "D:/Thèse_1a/Expériences/Instron_extrusion/Test/images_results/Emul88_2cm_0.036mms_1.MP4" # This could also be in a loop later
-    video_path = folder_path+'/'+video_name+'.MP4'
+    video_path = os.path.join(folder_path, "Examples", video_name+'.MP4')
+    output_folder = "Results"
+    if not os.path.exists(os.path.join(folder_path, output_folder)):
+        os.mkdir(os.path.join(folder_path, output_folder))
     
     write_all_images = True
     debug = True
@@ -34,7 +38,7 @@ if __name__ == "__main__":
     left_margin = True
     upper_margin = True
     bottom_margin = True
-    write_csv_files = False
+    write_csv_files = True
     auto_scale = False
     Invert = False
     Only_pinch_off = True
@@ -80,13 +84,18 @@ if __name__ == "__main__":
     if upper_margin :     
         imgs = remove_upper_margin(imgs, upper_margin_value)
 
-    imgs, steps = get_several_images_to_crop_2(imgs, denoising_kernel_size = denoising_kernel_size, debug = debug, black_and_white_threshold = black_and_white_threshold)
+    imgs, steps = get_several_images_to_crop_2(imgs, 
+                                               denoising_kernel_size = denoising_kernel_size, 
+                                               debug = debug,
+                                               black_and_white_threshold = black_and_white_threshold,
+                                               output_folder=output_folder)
     #We first find the image(s) where the filament breaks, then we keep a selection (around 30 images for one complete extrusion)
     print (len(imgs), " detected") #Number of images that will be used in the following
           
     if write_all_images: #We can choose to write all the selected images, in RGB
         for i in range(len(imgs)):
-            cv2.imwrite("img_" + str(i) + ".tif", imgs[i])
+            output_path = os.path.join(output_folder,"img_" + str(i) + ".tif" )
+            cv2.imwrite(output_path, imgs[i])
     
     
     ####################PROFILES######################
@@ -118,7 +127,8 @@ if __name__ == "__main__":
         print(str(numimg) + "th image processed")
         
         if write_all_images: #It can be useful to visualize all the cropped b&w images extracted from the video
-            cv2.imwrite("img_bw_" + str(numimg) + ".tif", img)       
+            output_path = os.path.join(output_folder, "img_bw_" + str(numimg) + ".tif")
+            cv2.imwrite(output_path, img)       
         
         Rinter, Zinter, liste_des_premiers_pixels = listes_brutes (img, liste_des_premiers_pixels) 
         #Get the list of diameters (Rinter), heights (Zinter) and height of first pixel of filament, in pixels
@@ -242,7 +252,7 @@ if __name__ == "__main__":
         
         #Creation of the .csv file for filament shapes
                         
-        file1 =('filament_shape_'+video_name+'.csv')         
+        file1 =os.path.join(output_folder,'filament_shape_'+video_name+'.csv')         
     
         shapes_table = open(file1,'w')
        
@@ -364,7 +374,7 @@ if __name__ == "__main__":
             
             #Creation of the .csv file for liquid regimes (flow curves)
                             
-            file2 =('liquid_'+video_name+'.csv')
+            file2 =os.path.join(output_folder,'liquid_'+video_name+'.csv')
             liquid_table = open(file2,'w')
             
             #Filling the .csv file
@@ -386,7 +396,7 @@ if __name__ == "__main__":
             
         #Creation of the .csv file for shear vs elongation
                             
-            file3 =('taus_vs_ds_'+video_name+'.csv')
+            file3 =os.path.join(output_folder,'taus_vs_ds_'+video_name+'.csv')
             liquid_table = open(file3,'w')
             
             #Filling the .csv file
@@ -410,7 +420,7 @@ if __name__ == "__main__":
             
             #Creation of the .csv file for liquid regimes (flow curves)
                         
-            file4 =('liquid_pinchoff_'+video_name+'.csv')
+            file4 =os.path.join(output_folder,'liquid_pinchoff_'+video_name+'.csv')
             liquid_table = open(file4,'w')
             
             #Filling the .csv file
@@ -434,7 +444,7 @@ if __name__ == "__main__":
             
             #Creation of the .csv file for solid regimes
                              
-            file5 =('solid_'+video_name+'.csv')         
+            file5 =os.path.join(output_folder,'solid_'+video_name+'.csv')         
             solid_table = open(file5,'w')
           
             #Filling the .csv file
